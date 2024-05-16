@@ -1,5 +1,6 @@
 import { useState } from "react";
 import QRCode from "react-qr-code";
+import { motion } from "framer-motion";
 
 function App() {
   const [url, setUrl] = useState("");
@@ -53,9 +54,15 @@ function App() {
       )}
 
       {isQRcodeSet && (
-        <div className="p-4">
+        <motion.div
+          className="p-4"
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.5, opacity: 0 }}
+          transition={{ duration: 0.35 }}
+        >
           <QRCode value={url} size={250} />
-        </div>
+        </motion.div>
       )}
     </div>
   );
