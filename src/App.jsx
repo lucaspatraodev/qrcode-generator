@@ -3,10 +3,12 @@ import QRCode from "react-qr-code";
 import { motion } from "framer-motion";
 
 function App() {
-  useEffect(() => {}, [setIsQrCodeDefined]);
-
   const [url, setUrl] = useState("");
   const [isQrCodeDefined, setIsQrCodeDefined] = useState(false);
+
+  useEffect(() => {
+    setUrl("");
+  }, [isQrCodeDefined]);
 
   const handleInputChange = (event) => {
     if (isQrCodeDefined === true) {
