@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import { motion } from "framer-motion";
 
 function App() {
+  useEffect(() => {}, [setIsQrCodeDefined]);
+
   const [url, setUrl] = useState("");
-  const [isQRcodeSet, setIsQRcodeSet] = useState(false);
+  const [isQrCodeDefined, setIsQrCodeDefined] = useState(false);
 
   const handleInputChange = (event) => {
-    if (isQRcodeSet === true) {
+    if (isQrCodeDefined === true) {
       return;
     }
     setUrl(event.target.value);
@@ -17,7 +19,7 @@ function App() {
     if (!url) {
       return;
     }
-    setIsQRcodeSet(true);
+    setIsQrCodeDefined(true);
   };
 
   return (
@@ -26,12 +28,12 @@ function App() {
         QRCode Generator!
       </h1>
 
-      {!isQRcodeSet && (
+      {!isQrCodeDefined && (
         <div className="flex flex-col justify-center">
           <input
             type="text"
             className="w-72 px-4 py-[12px] mb-4 rounded-md shadow-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Digite o texto para gerar o QR Code"
+            placeholder="Digite um link ou texto para gerar o QR Code"
             value={url}
             onChange={handleInputChange}
           />
@@ -44,16 +46,16 @@ function App() {
         </div>
       )}
 
-      {isQRcodeSet && (
+      {isQrCodeDefined && (
         <button
-          onClick={() => setIsQRcodeSet(false)}
+          onClick={() => setIsQrCodeDefined(false)}
           className="w-72 px-6 py-3 rounded-md bg-blue-500 text-white font-semibold shadow-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Gerar novo QR Code
         </button>
       )}
 
-      {isQRcodeSet && (
+      {isQrCodeDefined && (
         <motion.div
           className="p-4"
           initial={{ scale: 0.5, opacity: 0 }}
